@@ -10,7 +10,7 @@ namespace Domain.Entity
 	{
 		public Guid Id { get; set; }
 		public Guid UserId { get; set; }
-		public virtual User? User { get; set; }
+		public virtual ApplicationUser? User { get; set; }
 		public virtual ICollection<CartDetail>? CartDetails { get; set; }
 	}
 }

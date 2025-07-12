@@ -15,7 +15,7 @@ namespace Domain.Entity
 		public string? Comment { get; set; } //Nhận xét của người dùng
 		public DateTime CreatedAt { get; set; } = DateTime.UtcNow; //Thời gian tạo đánh giá
 		public DateTime UpdatedAt { get; set; } = DateTime.UtcNow; //Thời gian cập nhật đánh giá
-		public virtual User? User { get; set; }
+		public virtual ApplicationUser? User { get; set; }
 		public virtual Product? Product { get; set; }
 	}
 }
