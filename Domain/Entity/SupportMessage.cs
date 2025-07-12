@@ -14,6 +14,6 @@ namespace Domain.Entity
 		public UserRole SenderRole { get; set; }
 		public string? Message { get; set; }
 		public DateTime SentAt { get; set; } = DateTime.UtcNow;
-		public virtual User? User { get; set; } 
+		public virtual ApplicationUser? User { get; set; } 
 	}
 }

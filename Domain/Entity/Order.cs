@@ -19,6 +19,7 @@ namespace Domain.Entity
 		public virtual ICollection<OrderDetail>? OrderDetails { get; set; }
 		public virtual Payments? Payment { get; set; }
 		public virtual DeliveryInfo? Delivery { get; set; }
+		public virtual ApplicationUser? User { get; set; }
 
 	}
 }

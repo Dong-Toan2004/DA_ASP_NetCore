@@ -1,7 +1,6 @@
 ﻿using Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +9,15 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Database.Configurations
 {
-	internal class ConfigUser : IEntityTypeConfiguration<ApplicationUser>
+	internal class ConfigCart : IEntityTypeConfiguration<Cart>
 	{
-		public void Configure(EntityTypeBuilder<ApplicationUser> builder)
+		public void Configure(EntityTypeBuilder<Cart> builder)
 		{
-			builder.ToTable("Users");
-			builder.HasKey(u => u.Id);
+			builder.ToTable("Carts");
+			builder.HasKey(c => c.Id);
+			builder.HasOne(c => c.User)
+				.WithOne(u => u.Cart)
+				.HasForeignKey<Cart>(c => c.UserId);
 		}
 	}
 }

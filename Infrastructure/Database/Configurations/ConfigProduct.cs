@@ -13,7 +13,10 @@ namespace Infrastructure.Database.Configurations
 	{
 		public void Configure(EntityTypeBuilder<Product> builder)
 		{
-			throw new NotImplementedException();
+			builder.ToTable("Products");
+			builder.HasKey(p => p.Id);
+			builder.HasOne(p => p.Category).WithMany(c => c.Products).HasForeignKey(p => p.CategoryId);
+			builder.HasOne(p => p.Discount).WithMany().HasForeignKey(d => d.DiscountId).OnDelete(DeleteBehavior.SetNull);
 		}
 	}
 }
