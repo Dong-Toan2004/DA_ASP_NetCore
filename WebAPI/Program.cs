@@ -1,3 +1,7 @@
+﻿
+using Infrastructure.Database.AppDbContext;
+using Infrastructure.Extentions;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI
 {
@@ -10,15 +14,25 @@ namespace WebAPI
 			// Add services to the container.
 
 			builder.Services.AddControllers();
-			// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+			// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openap
 			builder.Services.AddOpenApi();
 
+			//Chạy giao diện API
+			builder.Services.AddEndpointsApiExplorer();
+			builder.Services.AddSwaggerGen();
+			//Map
+			builder.Services.AddEndpointsApiExplorer();
+
+			// DI
+			builder.Services.AddInfrastructureServices(builder.Configuration);
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())
 			{
 				app.MapOpenApi();
+				app.UseSwagger();
+				app.UseSwaggerUI();
 			}
 
 			app.UseHttpsRedirection();
