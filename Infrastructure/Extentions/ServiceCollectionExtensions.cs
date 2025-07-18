@@ -18,8 +18,10 @@ namespace Infrastructure.Extentions
 		{
 			services.AddDbContext<WebBanDoAnDbContext>(option =>
 				option.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+			services.AddScoped<IAuthRepository, AuthRepository>();
 			services.AddScoped<IProductRepository, ProductRepository>();
 			services.AddScoped<ICategoryRepository, CategoryRepository>();
+			services.AddScoped<IDiscountRepository, DiscountRepository>();
 			return services;
 		}
 	}

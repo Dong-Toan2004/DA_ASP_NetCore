@@ -32,7 +32,7 @@ namespace Infrastructure.Implements.Repositories
 					Data = null
 				};
 			}
-			if (!string.IsNullOrEmpty(product.Name))
+			if (string.IsNullOrEmpty(product.Name))
 			{
 				return new ResponseObject<ProductDto>
 				{
@@ -59,7 +59,6 @@ namespace Infrastructure.Implements.Repositories
 				ImageUrl = product.ImageUrl,
 				Status = product.Status,
 				CreatedAt = DateTime.UtcNow,
-				UpdatedAt = DateTime.UtcNow,
 				CategoryId = product.CategoryId,
 				DiscountId = product.DiscountId
 			};
@@ -78,7 +77,6 @@ namespace Infrastructure.Implements.Repositories
 					ImageUrl = newProduct.ImageUrl,
 					Status = newProduct.Status,
 					CreatedAt = newProduct.CreatedAt,
-					UpdatedAt = newProduct.UpdatedAt,
 					CategoryId = newProduct.CategoryId,
 					DiscountId = newProduct.DiscountId
 				}
@@ -119,9 +117,45 @@ namespace Infrastructure.Implements.Repositories
 			};
 		}
 
-		public async Task<IEnumerable<ProductDto>> GetAllProducts()
+		public async Task<IEnumerable<ProductDto>> GetAllProducts(ProductSeachDto productSeach)
 		{
-			var products = await _dbContext.Products.ToListAsync();
+			var filteredProducts = _dbContext.Products.AsQueryable();
+
+			if (!string.IsNullOrEmpty(productSeach.Name))
+			{
+				filteredProducts = filteredProducts.Where(p => p.Name.Contains(productSeach.Name, StringComparison.OrdinalIgnoreCase));
+			}
+			if (productSeach.CategoryId.HasValue)
+			{
+				filteredProducts = filteredProducts.Where(p => p.CategoryId == productSeach.CategoryId.Value);
+			}
+			if (productSeach.DiscountId.HasValue)
+			{
+				filteredProducts = filteredProducts.Where(p => p.DiscountId == productSeach.DiscountId.Value);
+			}
+			if (productSeach.Status.HasValue)
+			{
+				filteredProducts = filteredProducts.Where(p => p.Status == productSeach.Status.Value);
+			}
+			if (productSeach.MinPrice.HasValue)
+			{
+				filteredProducts = filteredProducts.Where(p => p.Price >= productSeach.MinPrice.Value);
+			}
+			if (productSeach.MaxPrice.HasValue)
+			{
+				filteredProducts = filteredProducts.Where(p => p.Price <= productSeach.MaxPrice.Value);
+			}
+			if (productSeach.ShortByPrice == "Price")
+			{
+				filteredProducts = productSeach.SortOrder == "asc" ?
+					filteredProducts.OrderBy(p => p.Price) :
+					filteredProducts.OrderByDescending(p => p.Price);
+			}
+			else
+			{
+				filteredProducts = filteredProducts.OrderByDescending(p => p.UpdatedAt);
+			}
+			var products = await filteredProducts.ToListAsync();
 			return products.Select(p => new ProductDto
 			{
 				Id = p.Id,
@@ -130,7 +164,6 @@ namespace Infrastructure.Implements.Repositories
 				Price = p.Price,
 				ImageUrl = p.ImageUrl,
 				Status = p.Status,
-				CreatedAt = p.CreatedAt,
 				UpdatedAt = p.UpdatedAt,
 				CategoryId = p.CategoryId,
 				DiscountId = p.DiscountId
@@ -161,7 +194,6 @@ namespace Infrastructure.Implements.Repositories
 					Price = product.Price,
 					ImageUrl = product.ImageUrl,
 					Status = product.Status,
-					CreatedAt = product.CreatedAt,
 					UpdatedAt = product.UpdatedAt,
 					CategoryId = product.CategoryId,
 					DiscountId = product.DiscountId

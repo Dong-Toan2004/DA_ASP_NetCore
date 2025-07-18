@@ -11,7 +11,7 @@ namespace Application.Interfaces.IRepositories
 {
 	public interface IProductRepository
 	{		
-		Task<IEnumerable<ProductDto>> GetAllProducts();
+		Task<IEnumerable<ProductDto>> GetAllProducts(ProductSeachDto productSeach);
 		Task<ResponseObject<ProductDto>> ProductById(Guid id);
 		Task<ResponseObject<ProductDto>> CreateProduct(ProductCreatDto product);
 		Task<ResponseObject<ProductDto>> UpdateProduct(Guid Id,ProductUpdateDto product);

@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Domain.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entity
+namespace Application.DataTransferObjects.CartDetail
 {
-	public class CartDetail
+	public class CartDetailCreateDto
 	{
 		public Guid Id { get; set; }
 		public Guid CartId { get; set; }
@@ -15,7 +16,5 @@ namespace Domain.Entity
 		public decimal Price { get; set; }
 		public bool IsActive { get; set; } = true;
 		public bool IsDeleted { get; set; } = false;
-		public virtual Cart? Cart { get; set; }
-		public virtual Product? Product { get; set; }
 	}
 }

@@ -1,4 +1,7 @@
-﻿using Application.Interfaces.IRepositories;
+﻿using Application.DataTransferObjects.Category;
+using Application.DataTransferObjects.Product;
+using Application.Interfaces.IRepositories;
+using Infrastructure.Implements.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -12,36 +15,40 @@ namespace WebAPI.Controllers
 		{
 			_categoryRepository = categoryRepository;
 		}
-		// GET: api/<CategoryController>
+
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<ActionResult<CategoryDto>> GetlAll()
 		{
-			return new string[] { "value1", "value2" };
+			var result = await _categoryRepository.GetAllCategories();
+			return Ok(result);
 		}
 
-		// GET api/<CategoryController>/5
 		[HttpGet("{id}")]
-		public string Get(int id)
+		public async Task<ActionResult> GetById(Guid id)
 		{
-			return "value";
+			var result = await _categoryRepository.GetCategoryById(id);
+			return Ok(result);
 		}
 
-		// POST api/<CategoryController>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public async Task<ActionResult> CreateCategory([FromBody] CategoryCreateDto categoryCreateDto)
 		{
+			var result = await _categoryRepository.CreateCategory(categoryCreateDto);
+			return Ok(result);
 		}
 
-		// PUT api/<CategoryController>/5
-		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		[HttpPut]
+		public async Task<ActionResult> UpdateCategory(Guid id, [FromBody] CategoryUpdateDto categoryUpdateDto)
 		{
+			var result = await _categoryRepository.UpdateCategory(id, categoryUpdateDto);
+			return Ok(result);
 		}
 
-		// DELETE api/<CategoryController>/5
-		[HttpDelete("{id}")]
-		public void Delete(int id)
+		[HttpDelete]
+		public async Task<ActionResult> DeleteCategory(Guid id)
 		{
+			var result = await _categoryRepository.DeleteCategory(id);
+			return Ok(result);
 		}
 	}
 }
