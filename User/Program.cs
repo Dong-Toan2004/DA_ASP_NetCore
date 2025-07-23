@@ -7,6 +7,7 @@ namespace User
 			var builder = WebApplication.CreateBuilder(args);
 
 			// Add services to the container.
+			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7028/") });
 			builder.Services.AddControllersWithViews();
 
 			var app = builder.Build();
