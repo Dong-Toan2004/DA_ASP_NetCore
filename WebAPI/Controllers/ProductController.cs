@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
 			return Ok(result);
 		}
 		[HttpGet]
-		public async Task<ActionResult<ProductDto>> GetlAll([FromQuery] ProductSeachDto productSeach)
+		public async Task<ActionResult<ProductDto>> GetAll([FromQuery] ProductSeachDto productSeach)
 		{
 			var result = await _productRepository.GetAllProducts(productSeach);
 			return Ok(result);
