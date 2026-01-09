@@ -62,7 +62,7 @@ namespace Infrastructure.Implements.Repositories
 				CategoryId = product.CategoryId,
 				DiscountId = product.DiscountId
 			};
-			_dbContext.Products.Add(newProduct);
+			await _dbContext.Products.AddAsync(newProduct);
 			await _dbContext.SaveChangesAsync();
 			return new ResponseObject<ProductDto>
 			{

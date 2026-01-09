@@ -1,0 +1,116 @@
+﻿@using Application.DataTransferObjects.CartDetail
+@model IEnumerable<CartDetailDto>
+@{
+	ViewData["Title"] = "Giỏ hàng";
+}
+<link href="/css/Cart.css" rel="stylesheet" asp-append-version="true"/>
+<h2>Giỏ hàng của bạn</h2>
+@foreach(var item in Model)
+{
+    <div class="cart-item">
+        <input type="checkbox" />
+        <img src="@item.ProductImageUrl" class="food-img" />
+        <div class="food-info">
+            <h5>@item.ProductName</h5>
+            <small>Size: Lớn • Không cay</small>
+        </div>
+
+        <div class="price">@item.Price.ToString("N0") đ</div>
+
+        <div class="quantity">
+            <button class="btn btn-outline-light text-bg-dark btn-minus" data-id="@item.ProductId">-</button>
+            <span>@item.Quantity</span>
+            <button class="btn btn-outline-light text-bg-dark btn-plus" data-id="@item.ProductId">+</button>
+        </div>
+
+        <div class="total"></div>
+
+        <button class="btn btn-outline-light text-bg-danger">Xóa</button>
+    </div>
+}
+
+<div class="cart-footer">
+    <div class="left">
+        <input type="checkbox" id="selectAll" />
+        <label for="selectAll">Chọn Tất Cả (<span id="itemCount">0</span>)</label>
+
+        <button class="btn btn-outline-light text-bg-danger">Xóa</button>
+        <button class="btn-link text-danger">Lưu vào mục Đã thích</button>
+    </div>
+
+    <div class="right">
+        <span>
+            Tổng cộng (<span id="selectedCount">0</span> sản phẩm):
+            <strong class="total-price">0đ</strong>
+        </span>
+
+        <button class="btn btn-outline-light text-bg-success btn-checkout">Mua Hàng</button>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.cart-item').forEach(item=>{
+        const btnMinus = item.querySelector('.btn-minus');
+        const btnPlus = item.querySelector('.btn-plus');
+        const quantitySpan = item.querySelector('.quantity span');
+        const priceDiv = item.querySelector('.price');
+        const totalDiv = item.querySelector('.total');
+        const price = parseInt(priceDiv.textContent.replace(/[^\d]/g, ''));
+        btnMinus.addEventListener('click', ()=>{
+            let quantity = parseInt(quantitySpan.textContent);
+            if(quantity > 1){
+                quantity--;
+                quantitySpan.textContent = quantity;
+                totalDiv.textContent = (price * parseInt(quantitySpan.textContent)).toLocaleString('vi-VN') + 'đ';
+            }
+        });
+        btnPlus.addEventListener('click', ()=>{
+            let quantity = parseInt(quantitySpan.textContent);
+            quantity++;
+            quantitySpan.textContent = quantity;
+            totalDiv.textContent = (price * quantity).toLocaleString('vi-VN') + 'đ';
+		});
+    })
+
+    const selectAll = document.getElementById('selectAll');
+    const totalPriceEl = document.querySelector('.total-price');
+    const selectedCountEl = document.getElementById('selectedCount');
+    const itemCountEl = document.getElementById('itemCount');
+
+    const cartItems = document.querySelectorAll('.cart-item');
+    itemCountEl.innerText = cartItems.length;
+
+    function updateCartTotal() {
+        let total = 0;
+        let selectedCount = 0;
+
+        cartItems.forEach(item => {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            const totalDiv = item.querySelector('.total');
+
+            if (checkbox.checked) {
+                const value = parseInt(
+                    totalDiv.textContent.replace('đ', '').replace('.', '')
+                );
+                total += value;
+                selectedCount++;
+            }
+        });
+
+        totalPriceEl.innerText = total.toLocaleString('vi-VN') + 'đ';
+        selectedCountEl.innerText = selectedCount;
+    }
+
+    // Checkbox từng sản phẩm
+    cartItems.forEach(item => {
+        item.querySelector('input[type="checkbox"]').addEventListener('change', updateCartTotal);
+    });
+
+    // Chọn tất cả
+    selectAll.addEventListener('change', () => {
+        cartItems.forEach(item => {
+            item.querySelector('input[type="checkbox"]').checked = selectAll.checked;
+        });
+        updateCartTotal();
+    });
+</script>

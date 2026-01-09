@@ -6,18 +6,19 @@ using User.Models;
 
 namespace User.Controllers
 {
-	public class HomeController : Controller 
+	public class HomeController : BaseController 
 	{
 		private readonly ILogger<HomeController> _logger;
-		private readonly HttpClient _httpClient;
-		public HomeController(ILogger<HomeController> logger, HttpClient httpClient)
+		private readonly IHttpClientFactory _httpClientFactory;
+		public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory) : base(httpClientFactory)
 		{
 			_logger = logger;
-			_httpClient = httpClient;
+			_httpClientFactory = httpClientFactory;
 		}
 
 		public async Task<IActionResult> Index(ProductSeachDto productSeachDto)
 		{
+			var client = _httpClientFactory.CreateClient("ApiClient");
 			if (productSeachDto == null)
 			{
 				return View(new List<ProductDto>());
@@ -58,7 +59,8 @@ namespace User.Controllers
 			}
 
 			var result = QueryHelpers.AddQueryString("api/Product/GetAll", queryParams);
-			var response = await _httpClient.GetFromJsonAsync<IEnumerable<ProductDto>>(result);
+			var response = await client.GetFromJsonAsync<IEnumerable<ProductDto>>(result);
+
 			return View(response);
 		}
 

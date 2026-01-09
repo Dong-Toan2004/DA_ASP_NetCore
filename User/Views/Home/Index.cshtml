@@ -2,7 +2,7 @@
 @model IEnumerable<ProductDto>
 
 @{
-	ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Trang chủ";
 }
 
 <link rel="stylesheet" href="~/css/home_Index.css" asp-append-version="true" />
@@ -68,8 +68,10 @@
 	<div class="row row-cols-1 row-cols-md-3 g-4" style="margin-top: 60px">
 		@foreach (var product in Model)
 		{
+			
 			<div class="col mb-4">
 				<div class="card h-100 position-relative">
+					<a asp-controller="Product" asp-action="ProductDetail" style="text-decoration:none; color: black">
 					<div class="card-img-wrapper position-relative">
 						@if (!string.IsNullOrEmpty(product.ImageUrl))
 						{
@@ -93,7 +95,10 @@
 					<div class="card-footer">
 						<span class="text-muted pricecss d-block mt-3">@product.Price.ToString("N0") ₫</span>
 					</div>
-					<button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+					</a>
+					<button type="button"
+							class="add-to-cart-btn"
+							onclick="addToCart('@product.Id')">
 						<i class="bi bi-cart-plus-fill"></i>
 					</button>
 				</div>
@@ -108,6 +113,7 @@
 		{
 			<div class="col mb-4">
 				<div class="card h-100 position-relative">
+					<a asp-action="ProductDetail" style="text-decoration:none; color: black">
 					<div class="card-img-wrapper position-relative">
 						@if (!string.IsNullOrEmpty(product.ImageUrl))
 						{
@@ -131,7 +137,10 @@
 					<div class="card-footer">
 						<span class="text-muted pricecss d-block mt-3">@product.Price.ToString("N0") ₫</span>
 					</div>
-					<button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+					</a>
+					<button type="button"
+							class="add-to-cart-btn"
+							onclick="addToCart('@product.Id')">
 						<i class="bi bi-cart-plus-fill"></i>
 					</button>
 				</div>
@@ -146,6 +155,7 @@
 		{
 			<div class="col mb-4">
 				<div class="card h-100 position-relative">
+					<a asp-action="ProductDetail" style="text-decoration:none; color: black">
 					<div class="card-img-wrapper position-relative">
 						@if (!string.IsNullOrEmpty(product.ImageUrl))
 						{
@@ -169,7 +179,10 @@
 					<div class="card-footer">
 						<span class="text-muted pricecss d-block mt-3">@product.Price.ToString("N0") ₫</span>
 					</div>
-					<button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+					</a>
+					<button type="button"
+							class="add-to-cart-btn"
+							onclick="addToCart('@product.Id')">
 						<i class="bi bi-cart-plus-fill"></i>
 					</button>
 				</div>
@@ -196,6 +209,7 @@
 		{
 			<div class="col mb-4">
 				<div class="card h-100 position-relative">
+					<a asp-controller="Product" asp-action="ProductDetail" style="text-decoration:none; color:black">
 					<div class="card-img-wrapper position-relative">
 						@if (!string.IsNullOrEmpty(product.ImageUrl))
 						{
@@ -219,7 +233,10 @@
 					<div class="card-footer">
 						<span class="text-muted pricecss d-block mt-3">@product.Price.ToString("N0") ₫</span>
 					</div>
-					<button class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+					</a>
+					<button type="button"
+							class="add-to-cart-btn"
+							onclick="addToCart('@product.Id')">
 						<i class="bi bi-cart-plus-fill"></i>
 					</button>
 				</div>
@@ -262,6 +279,37 @@
 		</div>
 	</div>
 </div>
+
+@*  thông báo toast *@
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+	<div id="cartToast" class="toast align-items-center text-bg-success border-0" role="alert">
+		<div class="d-flex">
+			<div class="toast-body" id="cartToastMessage">
+				Thêm vào giỏ hàng thành công
+			</div>
+			<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+		</div>
+	</div>
+</div>
+
+<script>
+	function showToast(message, success = true) {
+		const toastEl = document.getElementById('cartToast');
+		const toastMsg = document.getElementById('cartToastMessage');
+
+		toastMsg.innerText = message;
+
+		toastEl.classList.remove('text-bg-success', 'text-bg-danger');
+		toastEl.classList.add(success ? 'text-bg-success' : 'text-bg-danger');
+
+		const toast = new bootstrap.Toast(toastEl, { delay: 2500 });
+		toast.show();
+	}
+</script>
+
 <script src="~/js/home_index.js" asp-append-version="true"></script>
+<script src="~/js/cart.js" asp-append-version="true"></script>
+
+
 
 

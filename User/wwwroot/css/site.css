@@ -91,8 +91,12 @@ header {
 .container {
     max-width: 1200px; /* tuỳ chỉnh theo nhu cầu */
     margin: 0 auto;
+    min-height: calc(100vh - 70px - 90px); /* Chiều cao tối thiểu trừ chiều cao header */
 }
-
+.container-footer {
+    max-width: 1200px;
+    margin: 0 auto; 
+}
 .list-unstyled .text-light.nav-link {
     transition: all 0.3s ease-in-out;
 }
@@ -101,3 +105,34 @@ header {
         color: red !important;
         transform: scale(1.1);
     }
+
+.dropdown-dark {
+    background-color: #212529; 
+    border: none;
+    margin-top: 0;
+}
+
+    .dropdown-dark .dropdown-item {
+        color: #fff;
+        padding: 10px 20px;
+        font-weight: 500;
+        font-family: Montserrat, sans-serif;
+        color: #fff !important;
+        transition: all 0.3s ease;
+    }
+
+        .dropdown-dark .dropdown-item:hover {
+            background-color: #343a40;
+            color: #fff;
+            color: #fff !important;
+            text-shadow: 0 0 5px rgba(255,255,255,0.8);
+        }
+
+.navbar .dropdown-menu {
+    top: 100%;
+    left: 0;
+}
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
