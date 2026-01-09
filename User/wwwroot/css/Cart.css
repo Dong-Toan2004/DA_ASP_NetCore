@@ -1,0 +1,106 @@
+﻿main {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+h2 {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0px 20px 0px;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 40px 80px 1fr 120px 120px 120px 80px;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s ease-in-out;
+}
+
+    .cart-item:hover {
+        border-color: #000000 !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+.food-img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+}
+
+    .quantity button {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0px 10px
+    }
+
+
+.btn-outline-light.text-bg-dark {
+    transition: all 0.3s ease-in-out;
+}
+
+    .btn-outline-light.text-bg-dark:hover {
+        background-color: #fff !important;
+        color: #000 !important;
+        border-color: #000000 !important;
+    }
+
+.btn-outline-light.text-bg-danger {
+    transition: all 0.3s ease-in-out;
+}
+    .btn-outline-light.text-bg-danger:hover {
+        background-color: #fff !important;
+        color: #ff0000 !important;
+        border-color: #ff0000 !important;
+    }
+
+.btn-outline-light.text-bg-success {
+    transition: all 0.3s ease-in-out;
+}
+    .btn-outline-light.text-bg-success:hover {
+        background-color: #fff !important;
+        color: #00aa00 !important;
+        border-color: #00aa00 !important;
+    }
+
+.cart-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-top: 1px solid #eee;
+    background: #fff;
+    position: sticky;
+    bottom: 0;
+}
+
+.cart-footer .left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.cart-footer .right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+}

@@ -16,13 +16,13 @@ namespace WebAPI.Controllers
 			_authRepository = authRepository;
 		}
 
-		[HttpPost("login")]
+		[HttpPost]
 		public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
 		{
 			var result = await _authRepository.Login(loginDto);
 			return Ok(result);
 		}
-		[HttpPost("register")]
+		[HttpPost]
 		public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
 		{
 			var result = await _authRepository.Register(registerDto);

@@ -73,8 +73,8 @@ namespace Infrastructure.Implements.Repositories
 			var claims = new[]
 			{
 				new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-				new Claim("id", user.Id.ToString()),
-				new Claim(ClaimTypes.Name, user.UserName ?? ""),
+				new Claim("UserId", user.Id.ToString()),
+				new Claim(ClaimTypes.Name, user.Name ?? ""),
 				new Claim(ClaimTypes.Role, user.Role.ToString())
 			};
 
