@@ -17,27 +17,30 @@
 .text-center.title2 {
     margin-top: 50px;
 }
-
-.search-container {
-    position: fixed;
-    left: 0;
-    width: 100%;
-    z-index: 1029; /* nhỏ hơn header (1030) */
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(6px);
-    border-radius: 0 0 12px 12px;
-    padding: 16px 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
+.category-buttons {
+    margin-top: 10px;
 }
-
+.search-wrapper {
+    position: sticky; /* Dùng sticky để có thể trượt ẩn/hiện */
+    top: 70px; /* Dính ngay dưới Navbar */
+    width: 100%;
+    z-index: 1020;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(5px);
+    padding-bottom: 5px; /* Giảm padding để sát banner hơn */
+    transition: transform 0.3s ease, margin-top 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.search-container {
+    width: 100%;
+    padding: 10px 0;
+}
 .search-bar input {
     max-width: 500px;
 }
 
 .carousel.slide {
     width: 100%;
-    padding-top: 70px;
 }
 
 .text-muted.pricecss {
@@ -124,7 +127,6 @@
     text-align: center;
     color: #fff;
     overflow: hidden;
-    margin-top: 70px;
 }
 
 .play-button {
@@ -163,3 +165,35 @@
     .btn-success:hover {
         transform: scale(1.1);
     }
+/* Danh mục */
+.category-buttons {
+    margin-top: 10px;
+}
+
+    .category-buttons .btn {
+        padding: 10px 22px;
+        border-radius: 999px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+        .category-buttons .btn:hover {
+            background-color: #212529;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+#categoryButtons {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+}
+
+    #categoryButtons.show {
+        max-height: 200px;
+        opacity: 1;
+        padding: 10px 0; /* Tạo khoảng cách nhỏ khi mở menu con */
+    }
+

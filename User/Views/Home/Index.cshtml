@@ -1,19 +1,38 @@
 ﻿@using Application.DataTransferObjects.Product
 @model IEnumerable<ProductDto>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 @{
 	ViewData["Title"] = "Trang chủ";
+	var searchValue = HttpContextAccessor.HttpContext?.Request.Query["Name"].ToString() ?? "";
 }
 
 <link rel="stylesheet" href="~/css/home_Index.css" asp-append-version="true" />
 
-<div class="py-3 search-container">
-	<form class="search-bar d-flex justify-content-center" role="search">
-		<input class="form-control me-2 w-50" type="search" placeholder="Search" aria-label="Search" />
+@* <div class="py-3 search-container">
+	<form asp-controller="Home" asp-action="Index" method="get" class="search-bar d-flex justify-content-center" role="search">
+		<input name="Name" class="form-control me-2 w-50" type="search" placeholder="Search" aria-label="Search" />
 		<button class="btn btn-outline-dark" type="submit">Search</button>
 	</form>
-</div>
+</div> *@
+<div class="search-wrapper">
+	<div class="py-3 search-container">
+		<form asp-controller="Home" asp-action="Index" method="get" class="search-bar d-flex justify-content-center" role="search">
+			<input name="Name" class="form-control me-2 w-50" type="search" placeholder="Search" aria-label="Search" value="@searchValue" />
+			<button class="btn btn-outline-dark" type="submit">Search</button>
+		</form>
+	</div>
 
+	<div id="categoryButtons"
+		 class="category-buttons mt-3 d-flex justify-content-center gap-3 flex-wrap">
+		<a class="btn btn-outline-dark">Mì</a>
+		<a class="btn btn-outline-dark">Bún</a>
+		<a class="btn btn-outline-dark">Cơm</a>
+		<a class="btn btn-outline-dark">Đồ ăn nhanh</a>
+		<a class="btn btn-outline-dark">Tráng miệng</a>
+		<a class="btn btn-outline-dark">Đồ uống</a>
+	</div>
+</div>
 @* Carousel slide *@
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
 	<div class="carousel-indicators">
@@ -68,17 +87,17 @@
 	<div class="row row-cols-1 row-cols-md-3 g-4" style="margin-top: 60px">
 		@foreach (var product in Model)
 		{
-			
+
 			<div class="col mb-4">
 				<div class="card h-100 position-relative">
 					<a asp-controller="Product" asp-action="ProductDetail" style="text-decoration:none; color: black">
-					<div class="card-img-wrapper position-relative">
-						@if (!string.IsNullOrEmpty(product.ImageUrl))
-						{
-							<img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="object-fit:cover; height:300px;">
-						}
+						<div class="card-img-wrapper position-relative">
+							@if (!string.IsNullOrEmpty(product.ImageUrl))
+							{
+								<img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="object-fit:cover; height:300px;">
+							}
 
-						@* @if(product.DiscountId != null)
+							@* @if(product.DiscountId != null)
 						{
 							<div class="discount-badge">
 								-@product.Discount.Percentage.ToString("N0")%
@@ -86,15 +105,15 @@
 								(@(product.Price* product.DiscountPercent / 100) ₫)
 							</div>
 						}*@
-					</div>
+						</div>
 
-					<div class="card-body">
-						<h5 class="card-title">@product.Name</h5>
-						<p class="card-text">@product.Description</p>
-					</div>
-					<div class="card-footer">
-						<span class="text-muted pricecss d-block mt-3">@product.Price.ToString("N0") ₫</span>
-					</div>
+						<div class="card-body">
+							<h5 class="card-title">@product.Name</h5>
+							<p class="card-text">@product.Description</p>
+						</div>
+						<div class="card-footer">
+							<span class="text-muted pricecss d-block mt-3">@product.Price.ToString("N0") ₫</span>
+						</div>
 					</a>
 					<button type="button"
 							class="add-to-cart-btn"
@@ -113,14 +132,14 @@
 		{
 			<div class="col mb-4">
 				<div class="card h-100 position-relative">
-					<a asp-action="ProductDetail" style="text-decoration:none; color: black">
-					<div class="card-img-wrapper position-relative">
-						@if (!string.IsNullOrEmpty(product.ImageUrl))
-						{
-							<img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="object-fit:cover; height:300px;">
-						}
+					<a asp-controller="Product" asp-action="ProductDetail" style="text-decoration:none; color: black">
+						<div class="card-img-wrapper position-relative">
+							@if (!string.IsNullOrEmpty(product.ImageUrl))
+							{
+								<img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="object-fit:cover; height:300px;">
+							}
 
-						@* @if(product.DiscountId != null)
+							@* @if(product.DiscountId != null)
 						{
 							<div class="discount-badge">
 								-@product.Discount.Percentage.ToString("N0")%
@@ -128,15 +147,15 @@
 								(@(product.Price* product.DiscountPercent / 100) ₫)
 							</div>
 						}*@
-					</div>
+						</div>
 
-					<div class="card-body">
-						<h5 class="card-title">@product.Name</h5>
-						<p class="card-text">@product.Description</p>
-					</div>
-					<div class="card-footer">
-						<span class="text-muted pricecss d-block mt-3">@product.Price.ToString("N0") ₫</span>
-					</div>
+						<div class="card-body">
+							<h5 class="card-title">@product.Name</h5>
+							<p class="card-text">@product.Description</p>
+						</div>
+						<div class="card-footer">
+							<span class="text-muted pricecss d-block mt-3">@product.Price.ToString("N0") ₫</span>
+						</div>
 					</a>
 					<button type="button"
 							class="add-to-cart-btn"
@@ -155,14 +174,14 @@
 		{
 			<div class="col mb-4">
 				<div class="card h-100 position-relative">
-					<a asp-action="ProductDetail" style="text-decoration:none; color: black">
-					<div class="card-img-wrapper position-relative">
-						@if (!string.IsNullOrEmpty(product.ImageUrl))
-						{
-							<img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="object-fit:cover; height:300px;">
-						}
+					<a asp-controller="Product" asp-action="ProductDetail" style="text-decoration:none; color: black">
+						<div class="card-img-wrapper position-relative">
+							@if (!string.IsNullOrEmpty(product.ImageUrl))
+							{
+								<img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="object-fit:cover; height:300px;">
+							}
 
-						@* @if(product.DiscountId != null)
+							@* @if(product.DiscountId != null)
 						{
 							<div class="discount-badge">
 								-@product.Discount.Percentage.ToString("N0")%
@@ -170,15 +189,15 @@
 								(@(product.Price* product.DiscountPercent / 100) ₫)
 							</div>
 						}*@
-					</div>
+						</div>
 
-					<div class="card-body">
-						<h5 class="card-title">@product.Name</h5>
-						<p class="card-text">@product.Description</p>
-					</div>
-					<div class="card-footer">
-						<span class="text-muted pricecss d-block mt-3">@product.Price.ToString("N0") ₫</span>
-					</div>
+						<div class="card-body">
+							<h5 class="card-title">@product.Name</h5>
+							<p class="card-text">@product.Description</p>
+						</div>
+						<div class="card-footer">
+							<span class="text-muted pricecss d-block mt-3">@product.Price.ToString("N0") ₫</span>
+						</div>
 					</a>
 					<button type="button"
 							class="add-to-cart-btn"
@@ -209,14 +228,14 @@
 		{
 			<div class="col mb-4">
 				<div class="card h-100 position-relative">
-					<a asp-controller="Product" asp-action="ProductDetail" style="text-decoration:none; color:black">
-					<div class="card-img-wrapper position-relative">
-						@if (!string.IsNullOrEmpty(product.ImageUrl))
-						{
-							<img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="object-fit:cover; height:300px;">
-						}
+					<a asp-controller="Product" asp-action="ProductDetail" style="text-decoration:none; color: black">
+						<div class="card-img-wrapper position-relative">
+							@if (!string.IsNullOrEmpty(product.ImageUrl))
+							{
+								<img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="object-fit:cover; height:300px;">
+							}
 
-						@* @if(product.DiscountId != null)
+							@* @if(product.DiscountId != null)
 						{
 							<div class="discount-badge">
 								-@product.Discount.Percentage.ToString("N0")%
@@ -224,15 +243,15 @@
 								(@(product.Price* product.DiscountPercent / 100) ₫)
 							</div>
 						}*@
-					</div>
+						</div>
 
-					<div class="card-body">
-						<h5 class="card-title">@product.Name</h5>
-						<p class="card-text">@product.Description</p>
-					</div>
-					<div class="card-footer">
-						<span class="text-muted pricecss d-block mt-3">@product.Price.ToString("N0") ₫</span>
-					</div>
+						<div class="card-body">
+							<h5 class="card-title">@product.Name</h5>
+							<p class="card-text">@product.Description</p>
+						</div>
+						<div class="card-footer">
+							<span class="text-muted pricecss d-block mt-3">@product.Price.ToString("N0") ₫</span>
+						</div>
 					</a>
 					<button type="button"
 							class="add-to-cart-btn"

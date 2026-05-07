@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Ưu đãi đặc biệt";
+}
+
+<link rel="stylesheet" href="~/css/home_Index.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/PromotionsProduct.css" asp-append-version="true" />
+<div class="container" style="margin-top: 25px;">
+    <div class="promo-banner">
+        <h1 class="display-4 fw-bold">SIÊU TIỆC ƯU ĐÃI</h1>
+        <p class="fs-4">Giảm giá lên đến 50% cho toàn bộ thực đơn trong tháng này!</p>
+    </div>
+
+    <h3 class="title2 mb-4">Mã giảm giá cho bạn</h3>
+    <div class="row g-4 mb-5">
+        <div class="col-md-6">
+            <div class="coupon-card">
+                <div>
+                    <h5 class="mb-1">Giảm 20k cho đơn từ 100k</h5>
+                    <p class="text-muted small mb-0">HSD: 31/01/2026</p>
+                </div>
+                <div class="text-end">
+                    <div class="coupon-code mb-2">SIEUNGON20</div>
+                    <button class="btn btn-sm btn-dark">Sao chép</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="coupon-card">
+                <div>
+                    <h5 class="mb-1">Miễn phí vận chuyển</h5>
+                    <p class="text-muted small mb-0">Đơn hàng từ 200k trở lên</p>
+                </div>
+                <div class="text-end">
+                    <div class="coupon-code mb-2">FREESHIP</div>
+                    <button class="btn btn-sm btn-dark">Sao chép</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="title2 mb-4">Món ngon đang giảm sâu</h3>
+    <div class="row row-cols-1 row-cols-md-4 g-4 mb-5">
+        @foreach (var i in Enumerable.Range(1, 4)) // Giả lập dữ liệu
+        {
+            <div class="col">
+                <div class="card h-100 position-relative">
+                    <div class="badge-promo">-30%</div>
+                    <div class="card-img-wrapper">
+                        <img src="/img/dui_ga_chien_gion.jpg" class="card-img-top" style="height:200px; object-fit:cover;">
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Món Ngon Ưu Đãi @i</h5>
+                        <div class="d-flex justify-content-center gap-2 align-items-center">
+                            <span class="text-decoration-line-through text-muted">50.000đ</span>
+                            <span class="pricecss">35.000đ</span>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button class="btn btn-outline-danger w-100 rounded-pill">Mua ngay</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row align-items-center bg-light p-5 rounded-4 mb-5">
+        <div class="col-md-6">
+            <img src="/img/food_banne.png" class="img-fluid rounded-3" alt="Member">
+        </div>
+        <div class="col-md-6">
+            <h2 class="fw-bold">Đăng ký thành viên ngay!</h2>
+            <p>Nhận ngay thông báo về các chương trình giảm giá độc quyền và tích điểm đổi món ăn miễn phí cho mỗi đơn hàng.</p>
+            <button class="btn btn-success btn-lg px-4">Đăng ký ngay</button>
+        </div>
+    </div>
+</div>

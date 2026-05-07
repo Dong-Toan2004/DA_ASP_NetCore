@@ -35,37 +35,16 @@
 				<div class="collapse navbar-collapse justify-content-center" id="navbarNav">
 					<ul class="navbar-nav gap-4">
 						<li class="nav-item"><a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Trang chủ</a></li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle"
-							   href="#"
-							   role="button"
-							   data-bs-toggle="dropdown">
-								Thực đơn
-							</a>
-							<ul class="dropdown-menu dropdown-dark">
-								<li><a class="dropdown-item" href="#">Gà rán</a></li>
-								<li><a class="dropdown-item" href="#">Burger</a></li>
-								<li><a class="dropdown-item" href="#">Combo</a></li>
-							</ul>
-						</li>
-
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle"
-							   href="#"
-							   role="button"
-							   data-bs-toggle="dropdown">
+						<li class="nav-item">
+							<a href="javascript:void(0)"
+							   id="toggleCategoryBtn"
+							   class="nav-link">
 								Danh mục món ăn
 							</a>
-							<ul class="dropdown-menu dropdown-dark">
-								<li><a class="dropdown-item" href="#">Món cay</a></li>
-								<li><a class="dropdown-item" href="#">Món không cay</a></li>
-								<li><a class="dropdown-item" href="#">Đồ uống</a></li>
-							</ul>
 						</li>
-
-						<li class="nav-item"><a class="nav-link" href="#">Món mới</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Ưu đãi</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
+						<li class="nav-item"><a asp-controller="Product" asp-action="SortProduct" class="nav-link">Lọc món</a></li>
+						<li class="nav-item"><a asp-controller="Product" asp-action="PromotionsProduct" class="nav-link">Ưu đãi</a></li>
+						<li class="nav-item"><a asp-controller="Contact" asp-action="Contact" class="nav-link">Liên hệ</a></li>
 					</ul>
 				</div>
 
@@ -171,15 +150,6 @@
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
-	<script>
-			function updateCartBadge() {
-			fetch('/Cart/GetCartQuantity')
-				.then(res => res.json())
-				.then(data => {
-					document.querySelector('#cartBadge').textContent = data.quantity;
-				});
-		}
-	</script>
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

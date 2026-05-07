@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Liên hệ với chúng tôi";
+}
+
+<link rel="stylesheet" href="~/css/home_Index.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/Contact.css" asp-append-version="true" />
+<div class="container" style="margin-top: 30px; margin-bottom: 80px;">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold display-5">Liên Hệ Với <span style="color: #ff4081;">Siêu Ngon</span></h1>
+        <p class="text-muted">Chúng tôi luôn lắng nghe ý kiến đóng góp của bạn để phục vụ tốt hơn mỗi ngày.</p>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="contact-info-card text-center">
+                <div class="icon-box mx-auto"><i class="bi bi-geo-alt"></i></div>
+                <h5>Địa chỉ</h5>
+                <p class="text-muted">Xóm 3 Thư Lâu - Nguyên Lý - Lý Nhân - Hà Nam</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="contact-info-card text-center">
+                <div class="icon-box mx-auto"><i class="bi bi-telephone"></i></div>
+                <h5>Hotline</h5>
+                <p class="text-muted">0123 456 789<br>0987 654 321</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="contact-info-card text-center">
+                <div class="icon-box mx-auto"><i class="bi bi-envelope"></i></div>
+                <h5>Email</h5>
+                <p class="text-muted">support@sieungon.com<br>info@sieungon.com</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-5">
+        <div class="col-lg-6">
+            <div class="bg-light p-5 rounded-4 h-100">
+                <h3 class="mb-4">Gửi tin nhắn cho chúng tôi</h3>
+                <form id="contactForm" method="post" action="/Home/SendMessage">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Họ và tên</label>
+                            <input type="text" class="form-control" name="name" placeholder="Nguyễn Văn A" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" placeholder="abc@gmail.com" required />
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Chủ đề</label>
+                            <select class="form-select">
+                                <option selected>Góp ý dịch vụ</option>
+                                <option>Hỏi đáp về món ăn</option>
+                                <option>Hợp tác kinh doanh</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Nội dung tin nhắn</label>
+                            <textarea class="form-control" name="message" rows="5" required></textarea>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-success btn-lg px-5 mt-3">Gửi ngay</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="map-container h-100">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3734.5868491465453!2d106.03455357446914!3d20.604923202202386!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135c5b7fad6100f%3A0x990c121a90f46cd6!2zTmjDoCBWxINuIEhvw6EgWMOzbSAzIFRow7RuIFRoxrAgTMOidQ!5e0!3m2!1svi!2s!4v1768104157656!5m2!1svi!2s"
+                        width="100%"
+                        height="100%"
+                        style="border:0; min-height: 450px;"
+                        allowfullscreen=""
+                        loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>

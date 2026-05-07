@@ -1,55 +1,99 @@
-﻿@{
-    ViewData["Title"] = "Chi tiết sản phẩm";
+﻿@using Application.DataTransferObjects.Product;
+@model IEnumerable<ProductDto>;
+@{
+	ViewData["Title"] = "Chi tiết sản phẩm";
 }
 <link href="/css/Product.css" rel="stylesheet" asp-append-version="true" />
 <div class="container mt-4">
-    <div class="product-card">
-        <div class="row">
-            <div class="col-md-5">
-                <img src="/img/mi_cay_hai_san.jpg" class="product-img-main" id="mainImg" />
-                <div class="d-flex mt-3">
-                    <img src="/img/mi_cay_hai_san.jpg" class="thumb-img" />
-                    <img src="/img/mi_cay_hai_san.jpg" class="thumb-img" />
-                </div>
-            </div>
+	<div class="product-card">
+		<div class="row">
+			<div class="col-md-5">
+				<img src="/img/mi_cay_hai_san.jpg" class="product-img-main" id="mainImg" />
+				<div class="d-flex mt-3">
+					<img src="/img/mi_cay_hai_san.jpg" class="thumb-img" />
+					<img src="/img/mi_cay_hai_san.jpg" class="thumb-img" />
+				</div>
+			</div>
 
-            <div class="col-md-7 ps-md-4">
-                <h4 class="fw-normal mb-3">Gấu Bông Chuột dễ thương size 45cm, Thú nhồi bông hình chuột quà tặng ngộ nghĩnh</h4>
+			<div class="col-md-7 ps-md-4">
+				<h4 class="fw-normal mb-3">Mì hải sản siêu cay 7 cấp độ</h4>
 
-                <div class="d-flex align-items: center gap-3 mb-3 text-muted border-bottom pb-3">
-                    <span class="text-warning">4.8 ⭐⭐⭐⭐⭐</span>
-                    <span class="border-start ps-3">357 Đánh giá</span>
-                    <span class="border-start ps-3">1k+ Đã bán</span>
-                </div>
+				<div class="d-flex align-items: center gap-3 mb-3 text-muted border-bottom pb-3">
+					<span class="text-warning">4.8 ⭐⭐⭐⭐⭐</span>
+					<span class="border-start ps-3">357 Đánh giá</span>
+					<span class="border-start ps-3">1k+ Đã bán</span>
+				</div>
 
-                <div class="price-box mb-4">
-                    <span class="old-price">99.000₫</span>
-                    <span class="new-price">55.000₫</span>
-                    <span class="discount-badge">39% GIẢM</span>
-                </div>
+				<div class="price-box mb-4">
+					<span class="old-price">99.000₫</span>
+					<span class="new-price">55.000₫</span>
+					<span class="discount-badge">39% GIẢM</span>
+				</div>
 
-                <div class="d-flex align-items-center mb-4">
-                    <div class="food-label-label">Vận Chuyển</div>
-                    <div class="small">
-                        <span class="text-muted">Vận chuyển đến: Quận 1, TP. Hồ Chí Minh</span>
-                    </div>
-                </div>
+				<div class="d-flex align-items-center mb-4">
+					<div class="food-label-label">Vận Chuyển</div>
+					<div class="small">
+						<span class="text-muted">Vận chuyển đến: Quận 1, TP. Hồ Chí Minh</span>
+					</div>
+				</div>
 
-                <div class="d-flex align-items-center mb-4">
-                    <div class="food-label">Phân Loại</div>
-                    <div class="d-flex gap-2">
-                        <button class="variant-option">Chuột xám</button>
-                        <button class="variant-option">Chuột trắng</button>
-                    </div>
-                </div>
+				<div class="d-flex align-items-center mb-4">
+					<div class="food-label">Phân Loại</div>
+					<div class="d-flex gap-2">
+						<button class="variant-option">Cỡ vừa</button>
+						<button class="variant-option">Cỡ lớn</button>
+					</div>
+				</div>
 
-                <div class="d-flex gap-3 mt-5">
-                    <button class="btn-add-cart btn btn-outline-light text-bg-success">
-                        <i class="bi bi-cart-plus me-2"></i> Thêm Vào Giỏ Hàng
-                    </button>
-                    <button class="btn-buy-now btn btn-outline-light text-bg-success">Mua Ngay</button>
-                </div>
-            </div>
-        </div>
-    </div>
+				<div class="d-flex gap-3 mt-5">
+					<button class="btn-add-cart btn btn-outline-light text-bg-success">
+						<i class="bi bi-cart-plus me-2"></i> Thêm Vào Giỏ Hàng
+					</button>
+					<button class="btn-buy-now btn btn-outline-light text-bg-success">Mua Ngay</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container mt-5">
+	<h2 style="display: flex; justify-content:center">Các sản phảm tương tự</h2>
+	<div class="row row-cols-1 row-cols-md-3 g-4" style="margin-top: 50px">
+		@foreach (var product in Model)
+		{
+			<div class="col mb-4">
+				<div class="card h-100 position-relative">
+					<a asp-controller="Product" asp-action="ProductDetail" style="text-decoration:none; color: black">
+						<div class="card-img-wrapper position-relative">
+							@if (!string.IsNullOrEmpty(product.ImageUrl))
+							{
+								<img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="object-fit:cover; height:300px;">
+							}
+
+							@* @if(product.DiscountId != null)
+						{
+							<div class="discount-badge">
+								-@product.Discount.Percentage.ToString("N0")%
+								<br />
+								(@(product.Price* product.DiscountPercent / 100) ₫)
+							</div>
+						}*@
+						</div>
+
+						<div class="card-body">
+							<h5 class="card-title">@product.Name</h5>
+							<p class="card-text">@product.Description</p>
+						</div>
+						<div class="card-footer">
+							<span class="text-muted pricecss d-block mt-3">@product.Price.ToString("N0") ₫</span>
+						</div>
+					</a>
+					<button type="button"
+							class="add-to-cart-btn"
+							onclick="addToCart('@product.Id')">
+						<i class="bi bi-cart-plus-fill"></i>
+					</button>
+				</div>
+			</div>
+		}
+	</div>
 </div>

@@ -22,7 +22,7 @@ namespace Infrastructure.Implements.Repositories
 		}
 		public async Task<ResponseObject<ProductDto>> CreateProduct(ProductCreatDto product)
 		{
-			 var productCheckName = await _dbContext.Products.FirstOrDefaultAsync(p => p.Name == product.Name);
+			var productCheckName = await _dbContext.Products.FirstOrDefaultAsync(p => p.Name == product.Name);
 			if (productCheckName != null)
 			{
 				return new ResponseObject<ProductDto>
@@ -123,7 +123,7 @@ namespace Infrastructure.Implements.Repositories
 
 			if (!string.IsNullOrEmpty(productSeach.Name))
 			{
-				filteredProducts = filteredProducts.Where(p => p.Name.Contains(productSeach.Name, StringComparison.OrdinalIgnoreCase));
+				filteredProducts = filteredProducts.Where(p => p.Name.Contains(productSeach.Name));
 			}
 			if (productSeach.CategoryId.HasValue)
 			{

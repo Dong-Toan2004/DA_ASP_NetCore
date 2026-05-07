@@ -19,6 +19,7 @@ namespace User.Controllers
 		public async Task<IActionResult> Index(ProductSeachDto productSeachDto)
 		{
 			var client = _httpClientFactory.CreateClient("ApiClient");
+			productSeachDto??=new ProductSeachDto();
 			if (productSeachDto == null)
 			{
 				return View(new List<ProductDto>());
